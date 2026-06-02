@@ -173,25 +173,25 @@ export default function Home() {
             </div>
 
             {/* Insight */}
-            <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/30 to-transparent pointer-events-none" />
-              <p className="text-xs text-zinc-500 mb-3 font-medium uppercase tracking-wider">התובנה</p>
-              <p className="text-white font-medium leading-relaxed">💡 {result.insight}</p>
-            </div>
+            {isGeyakenMode && result.counter ? (
+              <div className="bg-amber-950/30 border border-amber-600/60 rounded-2xl p-5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 to-transparent pointer-events-none" />
+                <p className="text-xs text-amber-500 mb-3 font-medium uppercase tracking-wider">התובנה ⚡</p>
+                <p className="text-amber-100 font-medium leading-relaxed">⚡ {result.counter}</p>
+              </div>
+            ) : (
+              <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/30 to-transparent pointer-events-none" />
+                <p className="text-xs text-zinc-500 mb-3 font-medium uppercase tracking-wider">התובנה</p>
+                <p className="text-white font-medium leading-relaxed">💡 {result.insight}</p>
+              </div>
+            )}
 
             {/* Analogy */}
             {result.analogy && (
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5">
                 <p className="text-xs text-zinc-500 mb-3 font-medium uppercase tracking-wider">אנלוגיה</p>
                 <p className="text-zinc-300 leading-relaxed text-sm">🔁 {result.analogy}</p>
-              </div>
-            )}
-
-            {/* Counter (Geyaken) */}
-            {result.counter && (
-              <div className="bg-zinc-900 border border-amber-900/50 rounded-2xl p-5">
-                <p className="text-xs text-amber-600 mb-3 font-medium uppercase tracking-wider">מצב גיאקן</p>
-                <p className="text-zinc-300 leading-relaxed text-sm">⚡ {result.counter}</p>
               </div>
             )}
 
