@@ -4,6 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "מחולל תובנות",
   description: "תובנות חכמות על החיים",
+  icons: { icon: "/logo.png" },
 };
 
 export default function RootLayout({

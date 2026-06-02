@@ -5,7 +5,7 @@ import { useState } from "react";
 const TOPICS = [
   "AI", "זוגיות", "ילדים", "עבודה ובוסים", "כלכלה",
   "פוליטיקה", "אקווריומים", "בעלי חיים",
-  "מדע", "מעבדות וכימיה", "התנהגות אנושית", "פסיכולוגיה", "הזדקנות/בריאות",
+  "מדע", "מעבדות וכימיה", "התנהגות אנושית", "הזדקנות/בריאות",
 ];
 
 interface Result {
@@ -92,7 +92,11 @@ export default function Home() {
 
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">מחולל תובנות</h1>
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <img src="/logo.png" alt="לוגו" style={{width:"36px", height:"36px", objectFit:"contain"}} />
+            <h1 className="text-4xl font-bold tracking-tight">מחולל תובנות</h1>
+            <img src="/logo.png" alt="לוגו" style={{width:"36px", height:"36px", objectFit:"contain"}} />
+          </div>
           <p className="text-zinc-400 text-sm">תובנות חכמות על החיים — בלי בולשיט</p>
         </div>
 
@@ -196,7 +200,7 @@ export default function Home() {
             </div>
 
             {/* Story Likes */}
-            <div style={{background:"red", padding:"10px", borderRadius:"8px", display:"flex", gap:"10px", alignItems:"center"}}>
+            <div style={{display:"flex", gap:"10px", alignItems:"center", paddingRight:"4px"}}>
               <span className="text-xs text-zinc-400">הסיפור:</span>
               <button
                 onClick={() => { setStoryLiked(true); saveLike(true, insightLiked); }}
@@ -224,7 +228,7 @@ export default function Home() {
             )}
 
             {/* Insight Likes */}
-            <div className="flex items-center gap-3 px-1 py-2 bg-zinc-800 rounded-xl">
+            <div style={{display:"flex", gap:"10px", alignItems:"center", paddingRight:"4px"}}>
               <span className="text-xs text-zinc-400">התובנה:</span>
               <button
                 onClick={() => { setInsightLiked(true); saveLike(storyLiked, true); }}
