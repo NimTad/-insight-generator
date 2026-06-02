@@ -18,6 +18,9 @@ interface Result {
 
 export default function Home() {
   const [selectedTopic, setSelectedTopic] = useState("");
+  const [storyLiked, setStoryLiked] = useState<boolean | null>(null);
+  const [insightLiked, setInsightLiked] = useState<boolean | null>(null);
+  const [saved, setSaved] = useState(false);
   const [customTopic, setCustomTopic] = useState("");
   const [isGeyakenMode, setIsGeyakenMode] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -33,6 +36,9 @@ export default function Home() {
     setResult(null);
     setError("");
     setCopied(false);
+    setStoryLiked(null);
+    setInsightLiked(null);
+    setSaved(false);
 
     try {
       const res = await fetch("/api/generate", {
@@ -51,6 +57,23 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function saveLike(sLiked: boolean | null, iLiked: boolean | null) {
+    if (!result || (sLiked === null && iLiked === null)) return;
+    setSaved(false);
+    await fetch("/api/like", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        topic: result.topic,
+        story: result.story,
+        insight: result.insight,
+        storyLiked: sLiked === true,
+        insightLiked: iLiked === true,
+      }),
+    });
+    setSaved(true);
   }
 
   function copyResult() {
@@ -172,6 +195,19 @@ export default function Home() {
               <p className="text-zinc-100 leading-relaxed text-sm">{result.story}</p>
             </div>
 
+            {/* Story Likes */}
+            <div style={{background:"red", padding:"10px", borderRadius:"8px", display:"flex", gap:"10px", alignItems:"center"}}>
+              <span className="text-xs text-zinc-400">הסיפור:</span>
+              <button
+                onClick={() => { setStoryLiked(true); saveLike(true, insightLiked); }}
+                style={{ fontSize: "1.25rem", opacity: storyLiked === true ? 1 : 0.35 }}
+              >👍</button>
+              <button
+                onClick={() => { setStoryLiked(false); saveLike(false, insightLiked); }}
+                style={{ fontSize: "1.25rem", opacity: storyLiked === false ? 1 : 0.35 }}
+              >👎</button>
+            </div>
+
             {/* Insight */}
             {isGeyakenMode && result.counter ? (
               <div className="bg-amber-950/30 border border-amber-600/60 rounded-2xl p-5 relative overflow-hidden">
@@ -186,6 +222,20 @@ export default function Home() {
                 <p className="text-white font-medium leading-relaxed">💡 {result.insight}</p>
               </div>
             )}
+
+            {/* Insight Likes */}
+            <div className="flex items-center gap-3 px-1 py-2 bg-zinc-800 rounded-xl">
+              <span className="text-xs text-zinc-400">התובנה:</span>
+              <button
+                onClick={() => { setInsightLiked(true); saveLike(storyLiked, true); }}
+                style={{ fontSize: "1.25rem", opacity: insightLiked === true ? 1 : 0.35 }}
+              >👍</button>
+              <button
+                onClick={() => { setInsightLiked(false); saveLike(storyLiked, false); }}
+                style={{ fontSize: "1.25rem", opacity: insightLiked === false ? 1 : 0.35 }}
+              >👎</button>
+              {saved && <span className="text-xs text-green-500">✓ נשמר</span>}
+            </div>
 
             {/* Analogy */}
             {result.analogy && (
