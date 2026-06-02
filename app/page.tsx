@@ -105,7 +105,7 @@ export default function Home() {
         <div className="flex items-center justify-between bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3">
           <div>
             <p className="text-sm font-medium">מצב גיאקן</p>
-            <p className="text-zinc-500 text-xs mt-0.5">מציג גם זווית נגדית לתובנה</p>
+            <p className="text-zinc-500 text-xs mt-0.5">תובנה קיצונית ומחוץ לנורמה</p>
           </div>
           <button
             onClick={() => setIsGeyakenMode(!isGeyakenMode)}
@@ -190,8 +190,8 @@ export default function Home() {
             {/* Counter (Geyaken) */}
             {result.counter && (
               <div className="bg-zinc-900 border border-amber-900/50 rounded-2xl p-5">
-                <p className="text-xs text-amber-600 mb-3 font-medium uppercase tracking-wider">זווית נגדית</p>
-                <p className="text-zinc-300 leading-relaxed text-sm">↩️ {result.counter}</p>
+                <p className="text-xs text-amber-600 mb-3 font-medium uppercase tracking-wider">מצב גיאקן</p>
+                <p className="text-zinc-300 leading-relaxed text-sm">⚡ {result.counter}</p>
               </div>
             )}
 
